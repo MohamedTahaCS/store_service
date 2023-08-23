@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stock-history")
+@RequestMapping("/stock-history")
 public class StockHistoryController {
     private final StockHistoryService stockHistoryService;
 
@@ -19,7 +19,7 @@ public class StockHistoryController {
         this.stockHistoryService = stockHistoryService;
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public ResponseEntity<List<StockHistory>> getAllStockHistories() {
         var stockHistories = stockHistoryService.getAllStockHistories();
         return new ResponseEntity<>(stockHistories, HttpStatus.OK);
@@ -38,7 +38,8 @@ public class StockHistoryController {
     }
 
     @GetMapping("/store/{storeCode}/product/{productCode}")
-    public ResponseEntity<List<StockHistory>> getHistoryOfProductInStore(@PathVariable String storeCode, @PathVariable String productCode) {
+    public ResponseEntity<List<StockHistory>> getHistoryOfProductInStore(@PathVariable String storeCode,
+            @PathVariable String productCode) {
         var stockHistories = stockHistoryService.getHistoryOfProductInStore(storeCode, productCode);
         return new ResponseEntity<>(stockHistories, HttpStatus.OK);
     }

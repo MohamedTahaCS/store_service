@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stores")
+@RequestMapping("/stores")
 public class StoreController {
     public final StoreService storeService;
 
@@ -16,25 +16,23 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-
-    @GetMapping({"/", ""})
+    @GetMapping({ "/", "" })
     public ResponseEntity<List<Store>> getAllStores() {
         List<Store> stores = storeService.getAllStores();
         return new ResponseEntity<>(stores, HttpStatus.OK);
     }
 
-    @GetMapping({"/{code}"})
+    @GetMapping({ "/{code}" })
     public ResponseEntity<Store> getStoreById(@PathVariable String code) {
         Store store = storeService.getStoreByCode(code);
         return new ResponseEntity<>(store, HttpStatus.OK);
     }
 
-    @PostMapping({"/", ""})
+    @PostMapping({ "/", "" })
     public ResponseEntity<Store> createNewStore(@RequestBody Store store) {
         Store newStore = storeService.createNewStore(store);
         return new ResponseEntity<>(newStore, HttpStatus.CREATED);
     }
-
 
     @PutMapping("/")
     public ResponseEntity<Store> updateStore(@RequestBody Store store) {

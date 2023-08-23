@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stocks")
+@RequestMapping("/stocks")
+
 public class StockController {
     private final StockService stockService;
 
@@ -17,8 +18,7 @@ public class StockController {
         this.stockService = stockService;
     }
 
-
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public ResponseEntity<List<Stock>> getAllStocks() {
         var stocks = stockService.getAllStocks();
         return new ResponseEntity<>(stocks, HttpStatus.OK);
@@ -66,7 +66,8 @@ public class StockController {
     }
 
     @GetMapping("/check_availability")
-    public ResponseEntity<ProductAvailabilityResponse> checkStockAvailability(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductAvailabilityResponse> checkStockAvailability(
+            @RequestBody ProductRequest productRequest) {
         ProductAvailabilityResponse response = stockService.checkStockAvailability(productRequest);
         return ResponseEntity.ok(response);
     }
