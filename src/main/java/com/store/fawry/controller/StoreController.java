@@ -34,8 +34,9 @@ public class StoreController {
         return new ResponseEntity<>(newStore, HttpStatus.CREATED);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Store> updateStore(@RequestBody Store store) {
+    @PutMapping("/{code}")
+    public ResponseEntity<Store> updateStore(@PathVariable String code, @RequestBody Store store) {
+        store.setCode(code);
         Store updatedStore = storeService.updateStore(store);
         return new ResponseEntity<>(updatedStore, HttpStatus.OK);
     }
