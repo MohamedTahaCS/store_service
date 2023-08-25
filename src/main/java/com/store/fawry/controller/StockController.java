@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/stocks")
@@ -50,25 +52,29 @@ public class StockController {
     }
 
     @PostMapping("/increase")
-    public ResponseEntity<?> increaseStock(@RequestBody StockRequest stockRequest) {
+    public ResponseEntity<Map<String, String>> increaseStock(@RequestBody StockRequest stockRequest) {
+        Map<String, String> response = new HashMap<>();
         if (!stockRequest.valid()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("store_code and product_code should be Not Null.");
+            response.put("error", "store_code and product_code should be Not Null.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         stockService.increaseStockQuantity(stockRequest);
-        return ResponseEntity.ok("Stock quantity increased successfully.");
+        response.put("message", "Stock quantity increased successfully.");
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/decrease")
-    public ResponseEntity<?> decreaseStock(@RequestBody StockRequest stockRequest) {
+    public ResponseEntity<Map<String, String>> decreaseStock(@RequestBody StockRequest stockRequest) {
+        Map<String, String> response = new HashMap<>();
         if (!stockRequest.valid()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("store_code and product_code should be Not Null.");
+            response.put("error", "store_code and product_code should be Not Null.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         stockService.decreaseStockQuantity(stockRequest);
-        return ResponseEntity.ok("Stock quantity decreased successfully.");
+        response.put("message", "Stock quantity decreased successfully.");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products/{productCode}/quantity")
