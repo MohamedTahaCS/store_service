@@ -65,11 +65,11 @@ public class StockController {
         return ResponseEntity.ok("Stock quantity decreased successfully.");
     }
 
-    @GetMapping("/check_availability")
-    public ResponseEntity<ProductAvailabilityResponse> checkStockAvailability(
-            @RequestBody ProductRequest productRequest) {
-        ProductAvailabilityResponse response = stockService.checkStockAvailability(productRequest);
-        return ResponseEntity.ok(response);
+    @GetMapping("/products/{productCode}/quantity")
+    public ResponseEntity<Integer> getQuantity(
+            @PathVariable String productCode) {
+        int quantity = stockService.getQuantity(productCode);
+        return ResponseEntity.ok(quantity);
     }
 
     @PostMapping("/make_order")

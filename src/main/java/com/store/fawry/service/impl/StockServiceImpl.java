@@ -49,16 +49,14 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public ProductAvailabilityResponse checkStockAvailability(ProductRequest productRequest) {
-        List<Stock> stocks = stockRepository.findByProductCode(productRequest.getProductCode());
+    public int getQuantity(String productCode) {
+        List<Stock> stocks = stockRepository.findByProductCode(productCode);
 
         int totalAvailableQuantity = stocks.stream()
                 .mapToInt(Stock::getQuantity)
                 .sum();
 
-        boolean isAvailable = totalAvailableQuantity >= productRequest.getQuantity();
-
-        return new ProductAvailabilityResponse(isAvailable, totalAvailableQuantity);
+        return totalAvailableQuantity;
     }
 
     @Override

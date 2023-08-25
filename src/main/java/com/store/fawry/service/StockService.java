@@ -14,7 +14,7 @@ public interface StockService {
 
     Stock getStockByStoreCodeAndProductCode(String storeCode, String productCode);
 
-    ProductAvailabilityResponse checkStockAvailability(ProductRequest productRequest);
+    int getQuantity(String productCode);
 
     @Transactional
     List<AllocatedStoreInfo> makeOrder(List<ProductRequest> productRequests);
