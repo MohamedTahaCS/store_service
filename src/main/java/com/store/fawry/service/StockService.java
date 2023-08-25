@@ -24,4 +24,6 @@ public interface StockService {
 
     @Transactional
     void decreaseStockQuantity(StockRequest stockRequest);
+
+    int getQuantityInStore(String storeCode, String productCode);
 }

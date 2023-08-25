@@ -19,4 +19,6 @@ public interface StockRepository extends JpaRepository<Stock, String> {
     List<Stock> findByStoreAndProductCode(Store store, String productCode);
 
     void deleteAllByStore_Code(String storeCode);
+
+    boolean existsByStore_CodeAndProductCode(String storeCode, String productCode);
 }

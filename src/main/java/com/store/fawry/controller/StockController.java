@@ -43,6 +43,12 @@ public class StockController {
         return new ResponseEntity<>(stock, HttpStatus.OK);
     }
 
+    @GetMapping("/store/{storeCode}/product/{productCode}/quantity")
+    public ResponseEntity<Integer> getQuantityInStore(@PathVariable String storeCode, @PathVariable String productCode) {
+        int quantity = stockService.getQuantityInStore(storeCode, productCode);
+        return new ResponseEntity<>(quantity, HttpStatus.OK);
+    }
+
     @PostMapping("/increase")
     public ResponseEntity<?> increaseStock(@RequestBody StockRequest stockRequest) {
         if (!stockRequest.valid()) {

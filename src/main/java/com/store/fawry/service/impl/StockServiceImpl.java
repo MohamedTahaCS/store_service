@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StockServiceImpl implements StockService {
@@ -57,6 +58,15 @@ public class StockServiceImpl implements StockService {
                 .sum();
 
         return totalAvailableQuantity;
+    }
+
+    @Override
+    public int getQuantityInStore(String storeCode, String productCode) {
+        return stockRepository.findByStore_CodeAndProductCode(storeCode, productCode)
+                .stream()
+                .findFirst()
+                .map(Stock::getQuantity)
+                .orElse(0);
     }
 
     @Override
