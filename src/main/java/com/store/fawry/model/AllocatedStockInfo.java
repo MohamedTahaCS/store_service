@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 public class AllocatedStockInfo {
     @JsonProperty("product_code")
     private String productCode;
-    @JsonProperty("allocated_quantity")
-    private int allocatedQuantity;
+    private int quantity;
 }
